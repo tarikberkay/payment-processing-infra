@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtualenv / Env
+venv/
+.env
+.env.*
+
+# Logs & Reports
+*.log
+logs/
+load-testing/results/
+backup/*.sql.gz
+
+# Kubernetes / Helm
+*.orig
+*.backup
+*.key
+*.pem
+credentials/
+pg-secret.yaml
+
+# CI/CD / Docker
+.docker/
+docker-compose.override.yml
+
+# macOS / Linux
+.DS_Store
+.Trash-*
+*~
+
+# Editors & IDEs
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+
+# Node / JS
+node_modules/
+
+# Misc
+*.tmp
+*.bak
+
+
+info.text

@@ -1,0 +1,27 @@
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') { steps { checkout scm } }
+    stage('Static Analysis') { steps { sh 'sonar-scanner -Dsonar.projectKey=payment-system' } }
+    stage('Unit Tests') {
+      steps {
+        sh 'pytest --junitxml=reports/pytest.xml'
+        junit 'reports/pytest.xml'
+      }
+    }
+    stage('Docker Build & Push') {
+      steps {
+        sh 'docker build -t registry.example.com/payment-app:${BUILD_NUMBER} . && docker push registry.example.com/payment-app:${BUILD_NUMBER}'
+      }
+    }
+    stage('Deploy to Kubernetes') {
+      steps {
+        sh 'kubectl -n payments-namespace set image deployment/payment-app payment-app=registry.example.com/payment-app:${BUILD_NUMBER}'
+      }
+    }
+  }
+  post {
+    always { archiveArtifacts 'reports/**' }
+    failure { mail to: 'team@vodafone.com', subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}" }
+  }
+}

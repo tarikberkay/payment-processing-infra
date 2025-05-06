@@ -1,0 +1,10 @@
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelector:
+      matchLabels:
+        team: payments
+    alerting:
+      alertmanagers:
+      - namespace: payments-namespace
+        name: alertmanager
+        port: web

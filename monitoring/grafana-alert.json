@@ -1,0 +1,23 @@
+{
+    "dashboard": {
+      "panels": [
+        {
+          "title": "Pod CPU Kullanımı",
+          "type": "graph",
+          "alert": {
+            "conditions": [
+              {
+                "evaluator": { "type": "gt", "params": [80] },
+                "operator": { "type": "and" },
+                "query": { "params": ["A"] },
+                "reducer": { "type": "avg", "params": [] }
+              }
+            ],
+            "for": "5m",
+            "notifications": [{ "uid": "team-pagerduty" }]
+          }
+        }
+      ]
+    }
+  }
+  
